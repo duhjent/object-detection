@@ -1,13 +1,8 @@
 import torch
-from torchvision.models.detection import (
-    retinanet_resnet50_fpn_v2,
-    RetinaNet_ResNet50_FPN_V2_Weights,
-    RetinaNet_ResNet50_FPN_Weights,
-    retinanet_resnet50_fpn,
-)
 import cv2 as cv
 import torchvision.transforms.v2 as T
 from torchvision.utils import draw_bounding_boxes
+from layers.retinanet import model
 
 CLASSES = [
     "N/A",
@@ -112,26 +107,10 @@ transform = T.Compose(
     ]
 )
 
-
-# for output bounding box post-processing
-def box_cxcywh_to_xyxy(x):
-    x_c, y_c, w, h = x.unbind(1)
-    b = [(x_c - 0.5 * w), (y_c - 0.5 * h), (x_c + 0.5 * w), (y_c + 0.5 * h)]
-    return torch.stack(b, dim=1)
-
-
-def rescale_bboxes(out_bbox, size):
-    img_w, img_h = size
-    b = box_cxcywh_to_xyxy(out_bbox)
-    b = b * torch.tensor([img_w, img_h, img_w, img_h], dtype=torch.float32)
-    return b
-
-
-model: torch.nn.Module = retinanet_resnet50_fpn(RetinaNet_ResNet50_FPN_Weights.COCO_V1)
 model.eval()
 
 cap = cv.VideoCapture("./data/drone_cows_cut.mp4")
-fourcc = cv.VideoWriter_fourcc(*"XVID")
+fourcc = cv.VideoWriter_fourcc(*"XVID") # type: ignore
 out = cv.VideoWriter(f"./data/retinanet-out.avi", fourcc, 15.0, (1920, 1080))
 
 orig_size = [1920, 1080]

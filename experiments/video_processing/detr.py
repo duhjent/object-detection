@@ -1,9 +1,8 @@
 import torch
-from torchvision.models.detection import retinanet_resnet50_fpn_v2, RetinaNet_ResNet50_FPN_V2_Weights
-import argparse
 import cv2 as cv
 import torchvision.transforms.v2 as T
 from torchvision.utils import draw_bounding_boxes
+from layers.detr import model
 
 CLASSES = [
     "N/A",
@@ -122,20 +121,12 @@ def rescale_bboxes(out_bbox, size):
     b = b * torch.tensor([img_w, img_h, img_w, img_h], dtype=torch.float32)
     return b
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--model', choices=['DETR', 'RetinaNet'])
 
-args = parser.parse_args()
-
-if args.model == 'DETR':
-    model: torch.nn.Module = torch.hub.load("facebookresearch/detr:main", "detr_resnet50", pretrained=True)  # type: ignore
-elif args.model == 'RetinaNet':
-    model: torch.nn.Module = retinanet_resnet50_fpn_v2(RetinaNet_ResNet50_FPN_V2_Weights.COCO_V1)
 model.eval()
 
 cap = cv.VideoCapture("./data/drone_cows_cut.mp4")
-fourcc = cv.VideoWriter_fourcc(*"XVID")
-out = cv.VideoWriter(f"./data/{model}-out.avi", fourcc, 15.0, (1920, 1080))
+fourcc = cv.VideoWriter_fourcc(*"XVID") # type: ignore
+out = cv.VideoWriter(f"./data/detr-out.avi", fourcc, 15.0, (1920, 1080))
 
 orig_size = [1920, 1080]
 

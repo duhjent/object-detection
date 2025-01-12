@@ -2,7 +2,7 @@ import torch
 import cv2 as cv
 import torchvision.transforms.v2 as T
 from torchvision.utils import draw_bounding_boxes
-from layers.detr import model
+from layers.detr import get_model
 
 CLASSES = [
     "N/A",
@@ -122,6 +122,7 @@ def rescale_bboxes(out_bbox, size):
     return b
 
 
+model = get_model('detr_resnet50')
 model.eval()
 
 cap = cv.VideoCapture("./data/drone_cows_cut.mp4")

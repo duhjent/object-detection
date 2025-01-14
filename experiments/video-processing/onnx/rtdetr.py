@@ -16,12 +16,14 @@ std = np.array([0.229, 0.224, 0.225])
 parser = argparse.ArgumentParser()
 parser.add_argument("--model", type=str, required=True)
 parser.add_argument("--out", type=str, required=True)
+parser.add_argument("--input", type=str, required=True)
+parser.add_argument('--nth_frame', type=int, default=2)
 
 args = parser.parse_args()
 
 ort_session = ort.InferenceSession(args.model)
 
-cap = cv.VideoCapture("./data/drone_cows_cut.mp4")
+cap = cv.VideoCapture(args.input)
 fourcc = cv.VideoWriter_fourcc(*"XVID")  # type: ignore
 out = cv.VideoWriter(args.out, fourcc, 15.0, (1920, 1080))
 
@@ -40,7 +42,7 @@ with tqdm(total=total_frames) as pbar:
         frame_cnt += 1
         pbar.update(1)
 
-        if frame_cnt % 2 == 1:
+        if frame_cnt % args.nth_frame == 1:
             continue
 
         model_in = cv.resize(frame, (640, 640))

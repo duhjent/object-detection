@@ -17,11 +17,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--model", type=str, required=True)
 parser.add_argument("--out", type=str, required=True)
 parser.add_argument("--input", type=str, required=True)
+parser.add_argument("--provider", type=str, default="CPUExecutionProvider")
 parser.add_argument('--nth_frame', type=int, default=2)
 
 args = parser.parse_args()
 
-ort_session = ort.InferenceSession(args.model)
+ort_session = ort.InferenceSession(args.model, providers=[args.provider])
 
 cap = cv.VideoCapture(args.input)
 fourcc = cv.VideoWriter_fourcc(*"XVID")  # type: ignore

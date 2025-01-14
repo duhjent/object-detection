@@ -34,11 +34,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--model", type=str, required=True)
 parser.add_argument("--out", type=str, required=True)
 parser.add_argument("--input", type=str, required=True)
+parser.add_argument("--provider", type=str, default="CPUExecutionProvider")
 parser.add_argument('--nth_frame', type=int, default=2)
 
 args = parser.parse_args()
 
-ort_sesssion = ort.InferenceSession(args.model)
+ort_session = ort.InferenceSession(args.model, providers=[args.provider])
 
 mean = np.array([0.485, 0.456, 0.406])
 std = np.array([0.229, 0.224, 0.225])
@@ -69,7 +70,7 @@ with tqdm(total=total_frames) as pbar:
             model_in = np.expand_dims(model_in.transpose((2, 0, 1)), 0).astype(
                 np.float32
             )
-            pred_logits, pred_boxes = ort_sesssion.run(
+            pred_logits, pred_boxes = ort_session.run(
                 ["pred_logits", "pred_boxes"], {"input": model_in}
             )
             probas = softmax(pred_logits, axis=2)[0, :, :-1]

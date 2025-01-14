@@ -9,7 +9,7 @@ for model_name in [
 ]:
     torch.onnx.export(
         get_model(model_name),
-        (torch.randn((1, 3, 800, 1066)),),
+        (torch.randn((1, 3, 800, 1422)),),
         f"./out/onnx/{model_name}.onnx",
         input_names=["input"],
         output_names=["pred_logits", "pred_boxes"],

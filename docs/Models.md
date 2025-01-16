@@ -24,6 +24,7 @@ FPS is from DETR paper, AP are mAP for COCO validation dataset.
 | DETR-R101            | 20  | 43.5 | 21.9 | 48   | 61.8 |
 | DETR-DC5-R101        | 10  | 44.9 | 23.7 | 49.5 | 62.3 |
 | RetinaNet-R101       | -   | 39.1 | 21.8 | 42.7 | 50.2 |
+
 Another table, found in the RT-DETR paper:
 ![[Pasted image 20250113222228.png]]
 

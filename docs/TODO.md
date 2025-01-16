@@ -1,0 +1,28 @@
+- [x] Compare results for torch vs onnx models
+- [x] Export rtdetr models to onnx
+	- [x] find out how to export one model
+	- [x] export all the models
+- [x] Export yolov8 models to onnx
+- [x] Export yolov11 models to onnx
+- [x] Gather benchmarks
+- [x] Gather outputs for DETR-R50
+- [x] Gather outputs for DETR-R50-DC5
+- [x] Gather outputs for DETR-R101
+- [x] Gather outputs for DETR-R101-DC5
+- [ ] Gather outputs for RT-DETR-R18 ([huggingface](https://huggingface.co/PekingU)) (ran into issues while exporting)
+- [x] Gather outputs for RT-DETR-R34
+- [x] Gather outputs for RT-DETR-R50
+- [x] Gather outputs for RT-DETR-R101
+- [x] Gather outputs for YOLO8n
+- [x] Gather outputs for YOLO8s
+- [x] Gather outputs for YOLO8m
+- [x] Gather outputs for YOLO8l
+- [x] Gather outputs for YOLO8x
+- [x] Gather outputs for YOLO11n
+- [x] Gather outputs for YOLO11s
+- [x] Gather outputs for YOLO11m
+- [x] Gather outputs for YOLO11l
+- [x] Gather outputs for YOLO11x
+- [ ] research on openvino
+- [ ] research on tensorRT
+- [ ] research on x86 devices

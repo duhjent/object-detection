@@ -4,30 +4,11 @@ import cv2 as cv
 import numpy as np
 import onnxruntime as ort
 import torch
-from scipy.special import softmax
 from torchvision.transforms import v2 as T
 from torchvision.utils import draw_bounding_boxes
 from tqdm import tqdm
 
 from datasets import CLASSES
-
-
-# for output bounding box post-processing
-def box_cxcywh_to_xyxy(x):
-    b = [
-        x[:, 0] - 0.5 * x[:, 2],
-        x[:, 1] - 0.5 * x[:, 3],
-        x[:, 0] + 0.5 * x[:, 2],
-        x[:, 1] + 0.5 * x[:, 3],
-    ]
-    return np.vstack(b).T
-
-
-def rescale_bboxes(out_bbox, size):
-    img_w, img_h = size
-    b = box_cxcywh_to_xyxy(out_bbox)
-    b = b * np.array([img_w, img_h, img_w, img_h])
-    return b
 
 
 parser = argparse.ArgumentParser()

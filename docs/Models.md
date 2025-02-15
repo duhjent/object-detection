@@ -9,6 +9,7 @@ Included in detectron2. Not for real-time.
 [Paper](https://arxiv.org/pdf/2304.08069) Real-time detr. Authored by chinese scientists from Peking university.
 Code for export onnx [here](https://github.com/lyuwenyu/RT-DETR/blob/main/rtdetrv2_pytorch/tools/export_onnx.py).
 Is available in openvino model zoo, in huggingface etc., has many stars and the paper has 400+ citations.
+Export to openvino: https://github.com/nanmi/RT-DETR-Deploy.
 Apache license.
 
 ## Summary
